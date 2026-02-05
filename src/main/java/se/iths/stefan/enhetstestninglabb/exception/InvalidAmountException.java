@@ -1,4 +1,7 @@
 package se.iths.stefan.enhetstestninglabb.exception;
 
-public class InvalidAmmountException {
+public class InvalidAmountException extends RuntimeException {
+    public InvalidAmountException(String message) {
+        super(message);
+    }
 }
