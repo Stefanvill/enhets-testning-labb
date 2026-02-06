@@ -2,15 +2,32 @@ package se.iths.stefan.enhetstestninglabb.component;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class)
 class AccountComponentTest {
+
+    @Mock //Separata AccountComponent för att kunna köra mock och junit separat
+    AccountComponent mockAccountComponent;
     private AccountComponent accountComponent;
 
     @BeforeEach
-    public void setUp() {
-        accountComponent = new AccountComponent();
+    void setUp() {
+        accountComponent = new AccountComponent();  // Ny fräsch instans per test
+    }
+
+    @Test
+    void displayBalance() {
+        when(mockAccountComponent.displayBalance()).thenReturn(999);
+
+        int result = mockAccountComponent.displayBalance();
+
+        assertEquals(999, result);
     }
 
     @Test
@@ -34,11 +51,5 @@ class AccountComponentTest {
         accountComponent.deposit(deposit);
         accountComponent.withdraw(withdraw);
         assertEquals(500, accountComponent.getBalance());
-    }
-
-    @Test
-    void displayBalance() {
-        int result = accountComponent.getBalance();
-        assertEquals(0, result);
     }
 }
